@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 package proyectoadjudicacion;
+
+import java.time.LocalDate;
+
 /**
  *
  * @author samuel
  */
 public class Cliente {
     int clave_cli, clave_men;
-    int [] fechas;
-    float[] monto=new float[3];
+    LocalDate[][] fecha;
+    float[] monto;
     String estado_men;
 }

@@ -4,20 +4,20 @@
  * and open the template in the editor.
  */
 package proyectoadjudicacion;
+import java.time.LocalDate;
+import java.time.Period;
 /**
  *
  * @author samuel
  */
 public class MetodosCliente {
-    public void DatosClienteAleatorio(int dia, int mes, int año, Cliente[] cli){
+    public void DatosClienteAleatorio(LocalDate fev, Cliente[] cli){
         Aleatorio alto=new Aleatorio();
-        for(int x=0; x<=cli.length; x++){
+        for(int x=0; x<=cli.length-1; x++){
+            cli[x]=new Cliente();
+            cli[x].fecha = new LocalDate[3][2];
             for(int y=0; y<=2; y++){
-                String f=Integer.toString(año)+Integer.toString(mes-y)+Integer.toString(15);
-                int ff=Integer.parseInt(f);
-                if(cli[x].fechas==null){
-                    cli[x].fechas[y]=ff;
-                }
+                cli[x].fecha[y][0]=fev.minus(Period.ofMonths(y));
             }
         }
     }
