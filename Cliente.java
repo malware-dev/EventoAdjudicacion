@@ -12,8 +12,8 @@ import java.time.LocalDate;
  * @author samuel
  */
 public class Cliente {
-    int clave_cli, clave_men;
+    int clave_cli;
     LocalDate[][] fecha;
     float[] monto;
-    String estado_men;
+    String[] estado_men;
 }

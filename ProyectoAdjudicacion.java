@@ -11,7 +11,7 @@ public class ProyectoAdjudicacion {
         MetodosCliente mcl=new MetodosCliente();
         LocalDate f=LocalDate.of(2016,02,15);
         mcl.DatosClienteAleatorio(f, cl);
-        System.out.println(cl[0].fecha[0][0]+""+cl[0].fecha[1][0]+""+cl[0].fecha[2][0]);
+        mcl.ImprimeMatrizCliente(cl);
     }
     
 }
