@@ -71,54 +71,67 @@ public class MetodosCliente {
     }
     
     public void Participantes(Cliente [] cl, int[] part){
-        boolean p;
+        boolean b=true;
+        int a=0;
         for(int x=0; x<=cl.length-1; x++){
-            p=true;
+            b=true;
             for(int y=0; y<=2; y++){
-                if(!cl[x].estado_men[y].equals("Pagado"))
-                    p=false;
+                if(!cl[x].estado_men[y].equals("Pagado")){
+                    b=false;
+                }
             }
-            if(p)
-                part[x]=cl[x].clave_cli;
+            if(b){
+                part[a]=cl[x].clave_cli;
+                a++;
+            }
         }
     }
     
     public void MostrarParticipantes(int[] part){
-        boolean b=true;
+        int x=0;
         System.out.println("Participantes");
-        for(int x=0; x<=part.length-1; x++){
-            if(part[x]!=0){
-                System.out.println("Cliente: "+part[x]);
-                b=false;
-            }
+        while(part[x]!=0 && x<=part.length-1){
+            System.out.println("Cliente: "+part[x]+" Indice "+x);
+            x++;
+            if(x==part.length) break;
         }
-        if(b)
-            System.out.println("No hay participantes en este grupo");
     }
     
     public void AcomodarParticipantes(int[] part, int[] sorteo, int[] subasta){
-        int x=0,h=0, i=0, s=0;
-        for(int y=0; y<=part.length-1; y++)
-            if(part[y]!=0)
-                x++;
-        if(x<=3)
+        int x=0, h, i, s=0;
+        while(part[x]!=0 && x<=part.length-1){
+            x++;
+            if(x==part.length) break;
+        }
+        if(x<=3){
             sorteo=part;
-        else{
+        }else{
             i=RetornaEntero(x-2,2);
             for(h=0; h<=i-1; h++)
                 sorteo[h]=part[h];
-            for(int j=h; j<=x; j++)
-                subasta[j]=part[j];
+            for(h=h; h<=x-1; h++){
+                subasta[s]=part[h];
+                s++;
+            }
         }
-        
-        System.out.println("\nClientes por sorteo");
-        for(h=0; h<=sorteo.length-1; h++)
-            if(sorteo[h]!=0)
-                System.out.println("Cliente: "+sorteo[h]);
+        x=0;
+        System.out.println("\nClientes por sorteo:");
+        while(sorteo[x]!=0 && x<=sorteo.length-1){
+            System.out.println("Cliente: "+sorteo[x]);
+            x++;
+            if(x==sorteo.length) break;
+        }
+        x=0;
         System.out.println("\nClientes por subasta");
-        for(h=0; h<=subasta.length-1; h++)
-            if(subasta[h]!=0)
-                System.out.println("Cliente: "+subasta[h]);
+        while(subasta[x]!=0 && x<=subasta.length-1){
+            System.out.println("Cliente: "+subasta[x]);
+            x++;
+            if(x==sorteo.length) break;
+        }
+    }
+    
+    public void Evento(){
+    
     }
 }
 
