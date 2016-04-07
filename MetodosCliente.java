@@ -7,6 +7,7 @@ package proyectoadjudicacion;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Random;
+import javax.swing.JOptionPane;
 /**
  *
  * @author samuel
@@ -104,7 +105,8 @@ public class MetodosCliente {
             if(x==part.length) break;
         }
         if(x<=3){
-            sorteo=part;
+            for(h=0; h<=2; h++)
+                sorteo[h]=part[h];
         }else{
             i=RetornaEntero(x-2,2);
             for(h=0; h<=i-1; h++)
@@ -115,23 +117,70 @@ public class MetodosCliente {
             }
         }
         x=0;
+        JOptionPane.showInputDialog(null,"Se mostrarán lo clientes por sorteo");
         System.out.println("\nClientes por sorteo:");
         while(sorteo[x]!=0 && x<=sorteo.length-1){
             System.out.println("Cliente: "+sorteo[x]);
             x++;
             if(x==sorteo.length) break;
         }
-        x=0;
-        System.out.println("\nClientes por subasta");
-        while(subasta[x]!=0 && x<=subasta.length-1){
-            System.out.println("Cliente: "+subasta[x]);
-            x++;
-            if(x==sorteo.length) break;
+        if(subasta[0]!=0){
+            x=0;
+            JOptionPane.showInputDialog(null,"Se mostrarán los clientes por subasta");
+            System.out.println("\nClientes por subasta");
+            while(subasta[x]!=0 && x<=subasta.length-1){
+                System.out.println("Cliente: "+subasta[x]);
+                x++;
+                if(x==sorteo.length) break;
+            }
         }
     }
     
-    public void Evento(){
-    
+    public void Evento(int[] sorteo, int[] subasta, Cliente[] cl, int[] men_subastadas){
+        boolean b;
+        int s=0, su=0, ms=0,c=0, gs=0;
+        JOptionPane.showMessageDialog(null, "Se iniciará el evento para el grupo\nseleccionado");
+        while(sorteo[s]!=0 && s<=sorteo.length-1){
+            s++;
+            if(s==sorteo.length) break;
+        }
+        int gana_sorteo=sorteo[RetornaEntero(s-1,0)];
+        while(cl[c].clave_cli!=gana_sorteo)
+            c++;
+        JOptionPane.showMessageDialog(null, "El cliente "+cl[c].clave_cli+" ganó por sorteo");
+        for(int y=0; y<=2; y++)
+            cl[c].estado_men[y]="Adjudicado Ganador por Sorteo";
+        while(subasta[su]!=0 && su<=subasta.length-1){
+            su++;
+            if(su==subasta.length) break;
+        }
+        if(su>0){
+            JOptionPane.showMessageDialog(null, "Se iniciará la subasta para el grupo seleccionado");
+            do{
+                System.out.println("");
+                for(int d=0; d<=su-1; d++)
+                    men_subastadas[d]+=RetornaEntero(3,1);
+                for(int d=0; d<=su-1; d++){
+                    System.out.println("El cliente "+subasta[d]+" ofrece "+men_subastadas[d]+" mensualidades ahora");
+                    if(men_subastadas[d]>ms){
+                        gs=subasta[d];
+                        ms=men_subastadas[d];
+                    }
+                    if(ms>=9){
+                        System.out.println("Solo se pueden subastar hasta 9 mensualidades");
+                        break;
+                    }
+                }
+                b=JOptionPane.showInputDialog(null, "Desea volver a subastar s/n").equalsIgnoreCase("s");
+            }while(b && ms<9);
+            c=0;
+            while(cl[c].clave_cli!=gs)
+                c++;
+            for(int y=0; y<=2; y++)
+                cl[c].estado_men[y]="Adjudicado Ganador por Subasta";
+            JOptionPane.showInputDialog(null,"Se mostrará el estado de los clientes\ndel grupo en función");
+            ImprimeMatrizCliente(cl);
+            JOptionPane.showInputDialog(null,"Ha terminado el evento para este grupo");
+        }
     }
 }
-

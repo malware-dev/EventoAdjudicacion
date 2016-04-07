@@ -11,4 +11,8 @@ package proyectoadjudicacion;
  */
 public class Grupo {
     Cliente[] cl;
+    int[] part;
+    int[] sorteo;
+    int[] subasta;
+    int[] men_subastadas;
 }
