@@ -4,17 +4,21 @@
 package proyectoadjudicacion;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class ProyectoAdjudicacion {
     public static void main(String[] args) {
         MetodosCliente mcl=new MetodosCliente();
+        MetodosGrupo mgpo=new MetodosGrupo();
+        Auxiliar aux=new Auxiliar();
+        Grupo[] gpo=null;
         LocalDate f=LocalDate.of(2016,02,15);
         Scanner recibir=new Scanner(System.in);
         String fecha;
-        int respuesta=0, res=0, numgrup=0, personasporgrupo=0;
-        boolean x=false,c=false;
+        int respuesta=0, res=0, numgrup=0, personasporgrupo=0, gruponum=0;
+        boolean x=false,c=false, grupo=true;
         //Aplicación de secuencias de escape y formato en números decimales, presentando de preferencia en tablas
         do{
             try{
@@ -30,7 +34,7 @@ public class ProyectoAdjudicacion {
                 do{
                     do{
                         try{//Control de errores en tiempos de ejecución perfectamente delimitados (try-catch)
-                            respuesta=Integer.parseInt(JOptionPane.showInputDialog(null,"1.- FECHA DEL EVENTO\n2.-NUMERO DE GRUPOS\n3.-CLIENTES POR GRUPO\n4.-VER UN GRUPO\n5.-EVENTO DE ADJUDICACION POR GRUPO\n6.-SALIR","EVENTO DE ADJUDICACION",1 ));//Uso de menús de forma gráfica.
+                            respuesta=Integer.parseInt(JOptionPane.showInputDialog(null,"1.- FECHA DEL EVENTO\n2.-NUMERO DE GRUPOS\n3.-DEFINIR CLIENTES POR GRUPO\n4.-EVENTO POR GRUPO\n5.-VER UN GRUPO\n6.-SALIR","EVENTO DE ADJUDICACION",1 ));//Uso de menús de forma gráfica.
                             x=true;
                         }catch(Exception e){
                             JOptionPane.showMessageDialog(null,"INGRESE  UN NUMERO DEL MENU","ERROR",1);
@@ -38,20 +42,37 @@ public class ProyectoAdjudicacion {
                     }while(!x);
                     switch(respuesta){
                         case 1:
-                            fecha=JOptionPane.showInputDialog(null,"INTRODUZCA LA FECHA DEL EVENTO\nAAAA/AA/AA\n","FECHA",1);
+                            f=aux.PideFecha();
                             break;
                         case 2:
-                            numgrup=Integer.parseInt(JOptionPane.showInputDialog(null,"INGRESE EL NUMERO DE GRUPOS QUE DESEA","GRUPOS",3)) ;
-                            Grupo[] gpo=new Grupo[numgrup];
+                            numgrup=aux.PideEntero("Número de Grupos que desea");
+                            gpo=new Grupo[numgrup];
                             break;
                         case 3:
-                            personasporgrupo=Integer.parseInt(JOptionPane.showInputDialog(null,"INGRESE LOS CLIENTES POR GRUPO","CLIENTES",3));
+                            personasporgrupo=aux.PideEntero("Personas por Grupo");
+                            mgpo.GeneraGrupos(gpo, personasporgrupo, f,numgrup);
                             break;
                         case 4:
-                            JOptionPane.showMessageDialog(null,"LOS GANADORES SON","GANDORES",1);
+                            do{
+                                try{
+                                    gruponum=Integer.parseInt(JOptionPane.showInputDialog(null,"QUE GRUPO DESEA PARA EL EVENTO","GRUPOS",1));
+                                    grupo=true;
+                                }catch(Exception e){
+                                    JOptionPane.showMessageDialog(null,"EL VALOR NO ES ACEPTADO","GRUPO",1);
+                                }
+                            }while(!grupo || gruponum>numgrup);
+                            mgpo.EventoGpo(gpo, gruponum);
                             break;
                         case 5:
-                            JOptionPane.showMessageDialog(null,"LOS GRUPOS SON","GRUPOS",1);
+                            do{
+                                try{
+                                    gruponum=Integer.parseInt(JOptionPane.showInputDialog(null,"QUE GRUPO DESEA VER","GRUPOS",1));
+                                    grupo=true;
+                                }catch(Exception e){
+                                    JOptionPane.showMessageDialog(null,"EL VALOR NO ES ACEPTADO","GRUPO",1);
+                                }
+                            }while(!grupo || gruponum>numgrup);
+                            mgpo.VerGpo(gpo, gruponum);
                             break;
                         case 6:
                             JOptionPane.showMessageDialog(null,"GRACIAS");

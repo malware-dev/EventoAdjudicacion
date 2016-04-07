@@ -62,9 +62,9 @@ public class MetodosCliente {
         for(int x=0; x<=cl.length-1; x++){
             for(int y=0; y<=2; y++){
                 if(cl[x].fecha[y][1]==null)
-                    System.out.print(cl[x].clave_cli+"\t\t"+cl[x].monto[y]+"\t\t"+cl[x].fecha[y][0]+"\t\t\t"+cl[x].estado_men[y]);
+                    System.out.printf(cl[x].clave_cli+"\t\t%.2f\t\t"+cl[x].fecha[y][0]+"\t\t\t"+cl[x].estado_men[y],cl[x].monto[y]);
                 else
-                    System.out.print(cl[x].clave_cli+"\t\t"+cl[x].monto[y]+"\t\t"+cl[x].fecha[y][0]+"\t"+cl[x].fecha[y][1]+"\t"+cl[x].estado_men[y]);
+                    System.out.printf(cl[x].clave_cli+"\t\t%.2f\t\t"+cl[x].fecha[y][0]+"\t"+cl[x].fecha[y][1]+"\t"+cl[x].estado_men[y],cl[x].monto[y]);
                 System.out.println("");
             }
             System.out.println("");
@@ -117,7 +117,7 @@ public class MetodosCliente {
             }
         }
         x=0;
-        JOptionPane.showInputDialog(null,"Se mostrarán lo clientes por sorteo");
+        JOptionPane.showMessageDialog(null,"Se mostrarán lo clientes por sorteo");
         System.out.println("\nClientes por sorteo:");
         while(sorteo[x]!=0 && x<=sorteo.length-1){
             System.out.println("Cliente: "+sorteo[x]);
@@ -126,7 +126,7 @@ public class MetodosCliente {
         }
         if(subasta[0]!=0){
             x=0;
-            JOptionPane.showInputDialog(null,"Se mostrarán los clientes por subasta");
+            JOptionPane.showMessageDialog(null,"Se mostrarán los clientes por subasta");
             System.out.println("\nClientes por subasta");
             while(subasta[x]!=0 && x<=subasta.length-1){
                 System.out.println("Cliente: "+subasta[x]);
@@ -178,9 +178,9 @@ public class MetodosCliente {
                 c++;
             for(int y=0; y<=2; y++)
                 cl[c].estado_men[y]="Adjudicado Ganador por Subasta";
-            JOptionPane.showInputDialog(null,"Se mostrará el estado de los clientes\ndel grupo en función");
+            JOptionPane.showMessageDialog(null,"Se mostrará el estado de los clientes\ndel grupo en función");
             ImprimeMatrizCliente(cl);
-            JOptionPane.showInputDialog(null,"Ha terminado el evento para este grupo");
+            JOptionPane.showMessageDialog(null,"Ha terminado el evento para este grupo");
         }
     }
 }

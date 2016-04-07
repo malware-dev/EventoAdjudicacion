@@ -15,4 +15,5 @@ public class Grupo {
     int[] sorteo;
     int[] subasta;
     int[] men_subastadas;
+    boolean sb;
 }
